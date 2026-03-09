@@ -3,6 +3,14 @@
 import { useState, useEffect } from "react";
 import { navigation } from "@/data/navigation";
 import { candidate } from "@/data/candidate";
+import { HEADER_HEIGHT, SCROLL_THRESHOLD } from "@/lib/constants";
+
+function scrollToSection(href: string) {
+  const el = document.querySelector(href);
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.scrollY - HEADER_HEIGHT;
+  window.scrollTo({ top, behavior: "smooth" });
+}
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -10,7 +18,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -18,22 +26,21 @@ export default function Header() {
 
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
+    scrollToSection(href);
   };
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/80 shadow-md backdrop-blur-md dark:bg-gray-950/80"
+          ? "bg-slate-900/90 shadow-md backdrop-blur-md dark:bg-slate-950/90"
           : "bg-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         <button
           onClick={() => handleNavClick("#hero")}
-          className="text-lg font-bold text-gray-900 dark:text-white"
+          className="text-lg font-bold text-white"
         >
           {candidate.name}
         </button>
@@ -44,7 +51,7 @@ export default function Header() {
             <li key={item.href}>
               <button
                 onClick={() => handleNavClick(item.href)}
-                className="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                className="nav-link relative text-sm font-medium text-white transition-colors hover:text-indigo-400"
               >
                 {item.label}
               </button>
@@ -56,20 +63,20 @@ export default function Header() {
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="flex flex-col gap-1.5 md:hidden"
-          aria-label="메뉴 열기"
+          aria-label={isMobileMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
         >
           <span
-            className={`block h-0.5 w-6 bg-gray-900 transition-transform dark:bg-white ${
+            className={`block h-0.5 w-6 bg-white transition-transform ${
               isMobileMenuOpen ? "translate-y-2 rotate-45" : ""
             }`}
           />
           <span
-            className={`block h-0.5 w-6 bg-gray-900 transition-opacity dark:bg-white ${
+            className={`block h-0.5 w-6 bg-white transition-opacity ${
               isMobileMenuOpen ? "opacity-0" : ""
             }`}
           />
           <span
-            className={`block h-0.5 w-6 bg-gray-900 transition-transform dark:bg-white ${
+            className={`block h-0.5 w-6 bg-white transition-transform ${
               isMobileMenuOpen ? "-translate-y-2 -rotate-45" : ""
             }`}
           />
@@ -78,13 +85,13 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="border-t border-gray-200 bg-white/95 backdrop-blur-md md:hidden dark:border-gray-800 dark:bg-gray-950/95">
+        <div className="border-t border-slate-700 bg-slate-900/95 backdrop-blur-md md:hidden">
           <ul className="flex flex-col px-4 py-4">
             {navigation.map((item) => (
               <li key={item.href}>
                 <button
                   onClick={() => handleNavClick(item.href)}
-                  className="block w-full py-3 text-left text-sm font-medium text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                  className="block w-full py-3 text-left text-sm font-medium text-slate-200 transition-colors hover:text-indigo-400"
                 >
                   {item.label}
                 </button>

@@ -100,12 +100,18 @@
 | File | Purpose | FR |
 |------|---------|-----|
 | `src/components/header.tsx` | 고정 네비게이션 바 (스크롤 시 배경 변경) | FR-05 |
-| `src/components/hero-banner.tsx` | 히어로 배너 (사진 + 이름 + 슬로건 + CTA) | FR-01 |
+| `src/components/hero-banner.tsx` | 히어로 배너 (사진 + 이름 + 슬로건 + CTA) | FR-01, FR-12, FR-13, FR-15, FR-16 |
 | `src/components/profile-section.tsx` | 후보자 프로필 (사진 + 약력) | FR-02 |
 | `src/components/pledge-section.tsx` | 공약 카드 그리드 | FR-03 |
-| `src/components/pledge-card.tsx` | 개별 공약 카드 (아이콘 + 분야 + 설명) | FR-03 |
-| `src/components/gallery-section.tsx` | 활동 사진 그리드 | FR-04 |
+| `src/components/pledge-card.tsx` | 개별 공약 카드 (글래스모피즘 + 3D 틸트) | FR-03, FR-17 |
+| `src/components/gallery-section.tsx` | 활동 사진 그리드 (AnimatePresence 라이트박스) | FR-04, FR-18 |
 | `src/components/footer.tsx` | 푸터 (연락처 + SNS) | FR-06 |
+| `src/components/smooth-scroll.tsx` | Lenis 기반 부드러운 관성 스크롤 래퍼 | FR-09 |
+| `src/components/scroll-progress.tsx` | 최상단 스크롤 진행률 바 (인디고 그라디언트 3px) | FR-10 |
+| `src/components/custom-cursor.tsx` | 커스텀 커서 (큰 원+작은 점, mix-blend-mode: difference) | FR-11 |
+| `src/components/magnetic-button.tsx` | 마우스 위치 따라가는 마그네틱 버튼 | FR-12 |
+| `src/components/floating-orbs.tsx` | 히어로 배경 블러 부유 오브 3개 | FR-13 |
+| `src/components/section-divider.tsx` | 섹션 간 Wavy SVG 디바이더 | FR-14 |
 
 ### Data
 
@@ -418,6 +424,34 @@ export const metadata: Metadata = {
 - [ ] next/image 사용 (모든 이미지)
 - [ ] `pnpm build` 성공
 - [ ] Lighthouse 성능 90+
+
+---
+
+## Awwwards 2차 디자인 업그레이드 (2026-03-09)
+
+### 추가 의존성
+- `lenis@1.3.18` — 부드러운 관성 스크롤
+
+### 효과 매트릭스
+
+| 효과 | 위치 | Awwwards 임팩트 |
+|------|------|:---:|
+| Lenis 관성 스크롤 | 전체 (layout.tsx 래퍼) | ★★★ |
+| 스크롤 프로그레스 바 | 최상단 고정 | ★★ |
+| 커스텀 커서 (반전 블렌드) | 전체 (pointer: fine만) | ★★★ |
+| 마그네틱 버튼 | CTA "공약 보기" | ★★ |
+| 그라디언트 텍스트 | 히어로 이름 | ★★★ |
+| 패럴랙스 | 히어로 사진 (useTransform Y축) | ★★ |
+| 부유 오브 | 히어로 배경 (3개, 15~22초 주기) | ★★★ |
+| Wavy 섹션 디바이더 | 섹션 간 | ★★ |
+| 카드 3D 틸트 + 글래스모피즘 | 공약 카드 | ★★★ |
+| 노이즈 텍스처 | body::before (SVG filter) | ★★ |
+| Lightbox AnimatePresence | 갤러리 (scale/blur 전환) | ★★ |
+
+### 접근성 대응
+- `prefers-reduced-motion: reduce` 시 모든 애니메이션 비활성화
+- 모바일(pointer: coarse): 커스텀 커서 숨김
+- 3D 틸트: onMouseMove 기반이므로 터치 기기에 영향 없음
 
 ---
 

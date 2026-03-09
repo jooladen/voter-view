@@ -75,6 +75,18 @@
 | FR-06 | 푸터: 연락처, SNS 링크 표시 | Medium | Pending |
 | FR-07 | 반응형: 모바일/태블릿/PC 브레이크포인트 대응 | High | Pending |
 | FR-08 | 다크모드: 시스템 설정 기반 자동 전환 | Low | Pending |
+| FR-09 | Lenis 기반 관성 스크롤 (부드러운 관성 스크롤) | High | Done |
+| FR-10 | 스크롤 프로그레스 바 (최상단 인디고 그라디언트) | Medium | Done |
+| FR-11 | 커스텀 커서 (반전 블렌드, 호버 확대, 모바일 숨김) | Medium | Done |
+| FR-12 | 마그네틱 버튼 (마우스 따라가는 CTA) | Medium | Done |
+| FR-13 | 히어로 배경 부유 오브 (인디고/바이올렛/시안) | Medium | Done |
+| FR-14 | Wavy SVG 섹션 디바이더 | Medium | Done |
+| FR-15 | 그라디언트 텍스트 (히어로 이름) | Medium | Done |
+| FR-16 | 히어로 사진 패럴랙스 (스크롤 시 Y축 이동) | Medium | Done |
+| FR-17 | 공약 카드 글래스모피즘 + 3D 틸트 | High | Done |
+| FR-18 | 갤러리 라이트박스 AnimatePresence 전환 (scale/blur) | Medium | Done |
+| FR-19 | 노이즈 텍스처 오버레이 (body::before) | Low | Done |
+| FR-20 | prefers-reduced-motion 접근성 대응 | High | Done |
 
 ### 3.2 Non-Functional Requirements
 
@@ -111,6 +123,8 @@
 | 이미지 용량으로 인한 로딩 속도 저하 | High | Medium | next/image 최적화, WebP 포맷, lazy loading |
 | 모바일에서 갤러리 레이아웃 깨짐 | Medium | Medium | 반응형 그리드 + 브레이크포인트 테스트 |
 | 콘텐츠(공약, 사진) 미확정으로 작업 지연 | Medium | High | 더미 데이터로 먼저 구현, 추후 교체 |
+| 모션 과다로 60fps 미달 | High | Low | prefers-reduced-motion 대응, 모바일 커서/틸트 비활성화 |
+| lenis 관성 스크롤 충돌 | Medium | Low | CSS scroll-behavior: smooth 제거, lenis 단독 관리 |
 
 ---
 
@@ -203,3 +217,4 @@ public/
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
 | 0.1 | 2026-03-09 | Initial draft | jooladen |
+| 0.2 | 2026-03-09 | Awwwards 2차 디자인 업그레이드 (FR-09~FR-20) 추가 | Claude Code |
