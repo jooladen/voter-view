@@ -10,16 +10,9 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --background: #020617;
+  --foreground: #f1f5f9;
   --header-height: 72px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #020617;
-    --foreground: #f1f5f9;
-  }
 }
 
 body {
@@ -39,7 +32,7 @@ html {
   left: 0;
   width: 0;
   height: 2px;
-  background: #818cf8;
+  background: linear-gradient(90deg, #6366f1, #06b6d4);
   transition: width 0.3s ease;
 }
 
@@ -53,7 +46,7 @@ html {
 }
 
 .glow-hover:hover {
-  box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.4);
 }
 
 /* Noise texture overlay */
@@ -63,7 +56,7 @@ body::before {
   inset: 0;
   z-index: 30;
   pointer-events: none;
-  opacity: 0.03;
+  opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
@@ -82,6 +75,12 @@ body::before {
   *:not(input):not(textarea):not(select) {
     cursor: none !important;
   }
+}
+
+/* Selection color */
+::selection {
+  background-color: rgba(99, 102, 241, 0.3);
+  color: #fff;
 }
 
 /* Reduced motion: disable all animations */

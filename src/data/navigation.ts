@@ -4,8 +4,8 @@ export type NavItem = {
 };
 
 export const navigation: NavItem[] = [
-  { label: "소개", href: "#profile" },
-  { label: "공약", href: "#pledges" },
+  { label: "서비스", href: "#features" },
+  { label: "활용 분야", href: "#use-cases" },
   { label: "갤러리", href: "#gallery" },
-  { label: "연락처", href: "#contact" },
+  { label: "문의하기", href: "#contact" },
 ];

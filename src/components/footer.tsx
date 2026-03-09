@@ -1,66 +1,47 @@
 "use client";
 
-import { candidate } from "@/data/candidate";
 import ScrollReveal from "./scroll-reveal";
 
-const SOCIAL_ICONS: Record<string, string> = {
-  instagram: "📷",
-  facebook: "📘",
-  youtube: "🎬",
-  twitter: "🐦",
-};
+const FOOTER_LINKS = [
+  { label: "서비스", href: "#features" },
+  { label: "활용 분야", href: "#use-cases" },
+  { label: "갤러리", href: "#gallery" },
+  { label: "문의하기", href: "#contact" },
+] as const;
 
 export default function Footer() {
   return (
-    <footer id="contact" className="bg-slate-950 py-12 text-slate-300">
+    <footer className="border-t border-white/5 bg-slate-950 py-12">
       <ScrollReveal>
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 md:grid-cols-3">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 sm:flex-row sm:justify-between">
           <div>
-            <h4 className="mb-4 text-lg font-bold text-white">연락처</h4>
-            <p className="mb-2">
-              <span className="text-slate-400">이메일: </span>
-              <a
-                href={`mailto:${candidate.email}`}
-                className="transition-colors hover:text-indigo-400"
-              >
-                {candidate.email}
-              </a>
+            <p className="text-lg font-bold tracking-tight">
+              <span className="gradient-text">Voter</span>
+              <span className="text-slate-400">View</span>
             </p>
-            <p>
-              <span className="text-slate-400">전화: </span>
-              <a
-                href={`tel:${candidate.phone}`}
-                className="transition-colors hover:text-indigo-400"
-              >
-                {candidate.phone}
-              </a>
+            <p className="mt-1 text-xs text-slate-600">
+              모든 리더의 브랜딩 파트너
             </p>
           </div>
 
-          <div>
-            <h4 className="mb-4 text-lg font-bold text-white">SNS</h4>
-            <div className="flex gap-4">
-              {candidate.socialLinks.map((link) => (
-                <a
-                  key={link.platform}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-2xl transition-opacity hover:opacity-70"
-                  aria-label={link.label}
-                >
-                  {SOCIAL_ICONS[link.platform] ?? "🔗"}
-                </a>
+          <nav>
+            <ul className="flex gap-6">
+              {FOOTER_LINKS.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-slate-500 transition-colors hover:text-slate-300"
+                  >
+                    {link.label}
+                  </a>
+                </li>
               ))}
-            </div>
-          </div>
+            </ul>
+          </nav>
 
-          <div className="flex items-end">
-            <p className="text-sm text-slate-500">
-              &copy; {new Date().getFullYear()} {candidate.name}. All rights
-              reserved.
-            </p>
-          </div>
+          <p className="text-xs text-slate-700">
+            &copy; {new Date().getFullYear()} VoterView. All rights reserved.
+          </p>
         </div>
       </ScrollReveal>
     </footer>

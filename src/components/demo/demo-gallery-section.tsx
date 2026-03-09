@@ -4,9 +4,9 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { gallery } from "@/data/gallery";
-import ScrollReveal from "./scroll-reveal";
+import ScrollReveal from "@/components/scroll-reveal";
 
-export default function GallerySection() {
+export default function DemoGallerySection() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const closeLightbox = useCallback(() => setSelectedIndex(null), []);
@@ -44,54 +44,40 @@ export default function GallerySection() {
   const selectedImage = selectedIndex !== null ? gallery[selectedIndex] : null;
 
   return (
-    <section id="gallery" className="relative overflow-hidden bg-slate-900 py-24">
-      {/* Accent glow */}
-      <div className="pointer-events-none absolute left-1/2 bottom-0 h-64 w-[500px] -translate-x-1/2 rounded-full bg-cyan-600/8 blur-[100px]" />
-
-      <div className="relative mx-auto max-w-6xl px-4">
+    <section id="gallery" className="bg-slate-50 py-20 dark:bg-slate-900">
+      <div className="mx-auto max-w-6xl px-4">
         <ScrollReveal>
-          <p className="mb-3 text-center text-sm font-semibold tracking-widest text-indigo-400 uppercase">
-            Portfolio
-          </p>
-          <h2 className="mb-4 text-center text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="mb-12 text-center text-3xl font-bold text-slate-900 dark:text-white">
             활동 갤러리
           </h2>
-          <p className="mx-auto mb-16 max-w-md text-center text-slate-500">
-            현장의 생생한 순간을 담은 포트폴리오
-          </p>
         </ScrollReveal>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {gallery.map((img, index) => (
-            <ScrollReveal key={img.id} variant="scale" delay={0.05 + index * 0.05}>
+            <ScrollReveal key={img.id} variant="scale" delay={0.05 + index * 0.06}>
               <button
                 onClick={() => setSelectedIndex(index)}
-                className="group relative aspect-square w-full overflow-hidden rounded-xl"
+                className="group relative aspect-square w-full overflow-hidden rounded-lg"
                 aria-label={img.alt}
               >
                 <Image
                   src={img.src}
                   alt={img.alt}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
                   sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                  {img.caption && (
-                    <p className="absolute bottom-0 left-0 right-0 p-3 text-sm font-medium text-white">
-                      {img.caption}
-                    </p>
-                  )}
-                </div>
-                {/* Border glow on hover */}
-                <div className="absolute inset-0 rounded-xl border border-indigo-500/0 transition-all duration-500 group-hover:border-indigo-500/40 group-hover:shadow-[inset_0_0_20px_rgba(99,102,241,0.1)]" />
+                {img.caption && (
+                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <p className="p-3 text-sm text-white">{img.caption}</p>
+                  </div>
+                )}
               </button>
             </ScrollReveal>
           ))}
         </div>
       </div>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -100,7 +86,7 @@ export default function GallerySection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
             onClick={closeLightbox}
             role="dialog"
             aria-modal="true"
@@ -108,7 +94,7 @@ export default function GallerySection() {
           >
             <button
               onClick={closeLightbox}
-              className="absolute right-6 top-6 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-xl text-white backdrop-blur-sm transition-all hover:bg-white/10"
+              className="absolute right-4 top-4 text-3xl text-white transition-opacity hover:opacity-70"
               aria-label="닫기"
             >
               &times;
@@ -119,7 +105,7 @@ export default function GallerySection() {
                 e.stopPropagation();
                 goToPrev();
               }}
-              className="absolute left-4 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-2xl text-white backdrop-blur-sm transition-all hover:bg-white/10 sm:left-6"
+              className="absolute left-4 text-4xl text-white transition-opacity hover:opacity-70"
               aria-label="이전 이미지"
             >
               &#8249;
@@ -127,22 +113,22 @@ export default function GallerySection() {
 
             <motion.div
               key={selectedIndex}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative mx-20 h-[70vh] w-full max-w-4xl"
+              initial={{ scale: 0.85, opacity: 0, filter: "blur(10px)" }}
+              animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+              exit={{ scale: 0.85, opacity: 0, filter: "blur(10px)" }}
+              transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="relative mx-16 h-[70vh] w-full max-w-4xl"
               onClick={(e) => e.stopPropagation()}
             >
               <Image
                 src={selectedImage.src}
                 alt={selectedImage.alt}
                 fill
-                className="rounded-lg object-contain"
+                className="object-contain"
                 sizes="100vw"
               />
               {selectedImage.caption && (
-                <p className="absolute bottom-0 left-0 right-0 rounded-b-lg bg-black/60 p-4 text-center text-sm text-white backdrop-blur-sm">
+                <p className="absolute bottom-0 left-0 right-0 bg-black/50 p-4 text-center text-white">
                   {selectedImage.caption}
                 </p>
               )}
@@ -153,7 +139,7 @@ export default function GallerySection() {
                 e.stopPropagation();
                 goToNext();
               }}
-              className="absolute right-4 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-2xl text-white backdrop-blur-sm transition-all hover:bg-white/10 sm:right-6"
+              className="absolute right-4 text-4xl text-white transition-opacity hover:opacity-70"
               aria-label="다음 이미지"
             >
               &#8250;
