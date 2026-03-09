@@ -13,6 +13,7 @@ const seoDescription =
   "정치인, CEO, 공인, 비영리 단체까지 — 리더의 비전을 가장 효과적으로 전달하는 프리미엄 프로모션 사이트. 맞춤 프로필, 비전 카드, 활동 갤러리, 실시간 문의까지 올인원.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://voter-view.vercel.app"),
   title: seoTitle,
   description: seoDescription,
   keywords: [
@@ -30,6 +31,9 @@ export const metadata: Metadata = {
     description: seoDescription,
     images: ["/og-image.png"],
     type: "website",
+  },
+  verification: {
+    google: "q3vp3LyDmgQmf35ljxaZCN_z8FbHb1xGJSAcgEw4THM",
   },
 };
 
